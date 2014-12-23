@@ -207,8 +207,10 @@ var canvas1=document.getElementById("myChart");
   document.getElementById("pensieve").value="";  
   sy= new Keystroke();
   sy.listen("pensieve");
-  myLineChart.destroy();
+  if(myRadarChart!=undefined)
   myRadarChart.destroy();
+  if(myLineChart!=undefined)
+  myLineChart.destroy();
   data.datasets[0].data=[];
   data1.datasets.forEach(function(elem){elem.data=[];});
   data.labels=[];
@@ -225,8 +227,8 @@ var sy= new Keystroke();
 sy.listen("pensieve");
 
 var ctx = document.getElementById("myChart").getContext("2d");
-var myLineChart= new Object();
-var myRadarChart= new Object();
+var myLineChart;
+var myRadarChart;
 var data = {
     labels: [],
     datasets: [
@@ -312,8 +314,10 @@ for (var i = 0; i < sy.digraphUUTimes.length; i++) {
   data1.datasets[2].data.push(sy.digraphDUTimes[i].duration);
   data1.datasets[3].data.push(sy.digraphDDTimes[i].duration);
 };
-myLineChart.destroy();
+if(myRadarChart!=undefined)
 myRadarChart.destroy();
+if(myLineChart!=undefined)
+myLineChart.destroy();
 myRadarChart = new Chart(ctx).Radar(data,{animationSteps:100});
 myLineChart = new Chart( document.getElementById("myChart1").getContext("2d")).Line(data1,{animationSteps:100});
 $("#chart").show();
