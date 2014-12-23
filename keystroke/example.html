@@ -207,6 +207,8 @@ var canvas1=document.getElementById("myChart");
   document.getElementById("pensieve").value="";  
   sy= new Keystroke();
   sy.listen("pensieve");
+  myLineChart.destroy();
+  myRadarChart.destroy();
   data.datasets[0].data=[];
   data1.datasets.forEach(function(elem){elem.data=[];});
   data.labels=[];
