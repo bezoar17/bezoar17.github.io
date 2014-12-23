@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>bezoar17</title>
-	<meta charset="utf-8">
+  <title>bezoar17</title>
+  <meta charset="utf-8">
  <link rel="stylesheet" type="text/css" href="bootstrap.css ">
  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
  <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
@@ -60,7 +60,7 @@ input:focus ~ label, input:valid ~ label     {
 }
 
 a:hover{
-	text-decoration: none;
+  text-decoration: none;
 }
 
 
@@ -135,21 +135,21 @@ input:focus ~ label, input:valid ~ label {
 <br><br>
 <div class="container" style="position:relative;">
 <div class="row-fluid">
-	<div class="col-lg-6 col-lg-offset-4">
-		<form method="post" action="javascript:void(0);" >
-		 	<div class="group">
-		    <input id="pensieve" type="text" class=""  required>
-		    <span class="highlight"></span>
-		    <span class="bar"></span>
+  <div class="col-lg-6 col-lg-offset-4">
+    <form method="post" action="javascript:void(0);" >
+      <div class="group">
+        <input id="pensieve" type="text" class=""  required>
+        <span class="highlight"></span>
+        <span class="bar"></span>
         <a href="" id="refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true" style=""></span> </a> 
-		    <label class="text-center">Type & hit Enter !!</label>
-		    </div>
+        <label class="text-center">Type & hit Enter !!</label>
+        </div>
 </form>
         
-	</div>
+  </div>
   
 </div>
-	
+  
 </div>
 <br>
 <div class="container" id="content">
@@ -172,10 +172,8 @@ input:focus ~ label, input:valid ~ label {
   </div>
   <br>
   <div class="row-fluid clearfix" style="background:rgba(255,255,255,1); ">
-    <div class="col-lg-9">
-      <svg id="svg"style='height:400px;width:1000px;'/>
-    </div>
-    <div class="col-lg-3">
+    <svg id="svg"style='height:400px;width:1000px;'/>
+    <div style="float:right;position:relative;top:-300px;margin-right:20px;">
       <p style="font-family:'Quicksand' ,sans-serif;ont-size:20px;font-weight:bold;" class="text-center">Legend for the plots<br><br>
       U denotes Keyup<br>D denotes Keydown<br>
       UU = U(second) - U(first)<br>
@@ -298,8 +296,6 @@ var options={
   scaleGridLineColor : "rgba(255,255,255,1)",
   scaleFontColor: "white"
 }
-
-
 $("#pensieve").keyup(function (event){if(event.which==13){
   sy.populate_1();
 
@@ -319,11 +315,7 @@ for (var i = 0; i < sy.digraphUUTimes.length; i++) {
 myRadarChart = new Chart(ctx).Radar(data,{animationSteps:100});
 myLineChart = new Chart( document.getElementById("myChart1").getContext("2d")).Line(data1,{animationSteps:100});
 $("#chart").show();
-
-//document.getElementById().innerHTML=myLineChart.generateLegend();
-//document.getElementById().innerHTML=myRadarChart.generateLegend();
-
-
+$("#svg").show();
 function digraph_values(){
     var uu=[];
     var ud=[];
@@ -376,7 +368,7 @@ nv.addGraph(function() {
         .axisLabelDistance(50)
         .tickFormat(d3.format("d"));
 
-    chart.margin({left:40,right:20});
+    chart.margin({left:50,right:20});
 
     d3.select("svg")
         .datum(digraph_values())
@@ -390,9 +382,6 @@ nv.addGraph(function() {
 
     return chart;
 });
-
-$("#svg").show();
-
 }});
 
 
