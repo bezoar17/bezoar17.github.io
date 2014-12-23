@@ -466,8 +466,10 @@ function Keystroke ()
     //cleanup() is performed to cleanup the pure this.raw to form the raw this.raw by deleting the keypresses and Backspace keys.
     this.cleanup = function () 
         {
+         
+
             //modifying the this.raw array to eliminate the keypress and have correct codes.
-            for (var i = 0; i < this.raw.length; i++) 
+           for (var i = 0; i < this.raw.length; i++) 
             {   
                 if(this.raw[i].type == "keypress")
                 {

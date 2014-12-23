@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bezoar17</title>
+	<meta charset="utf-8">
+ <link rel="stylesheet" type="text/css" href="bootstrap.css ">
+ <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+ <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+ <link href="nvd3/nv.d3.css" rel="stylesheet" type="text/css">
+ <script type="text/javascript" src="nvd3/lib/d3.v3.js"></script>
+  <script type="text/javascript" src="nvd3/nv.d3.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <style type="">
+    body { 
+  background: url(images/4.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+font-family: 'Quicksand', sans-serif;
+
+/* form starting stylings ------------------------------- */
+.group        { 
+  position:relative; 
+  margin-bottom:45px;
+}
+input         {
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:380px;
+  height:60px;
+  border:none;
+  border-bottom:2px solid white;
+  background:rgba(66,139,202,.8);
+}
+input:focus     { outline:none; color: white;font-family: 'Lato',sans-serif;background:transparent;}
+
+/* LABEL ======================================= */
+label          {
+  font-family: 'Quicksand', sans-serif;
+  color:white; 
+  font-size:32px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:12%;
+  top:10px;
+  transition:.8s ease all; 
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label     {
+  top:-20px;
+  font-size:20px;
+  color:#2a6496;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+
+/* BOTTOM BARS ================================= */
+.bar  { position:relative; display:block; width:380px; }
+.bar:before, .bar:after   {
+  content:'';
+  height:2px; 
+  width:0;
+  bottom:0px; 
+  position:absolute;
+  background:#2a6496; 
+  transition:0.5s ease all; 
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%; 
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.9;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  animation:inputHighlighter 0.5s ease;
+}
+
+/* ANIMATIONS ================ */
+@keyframes inputHighlighter {
+  from  { background:#2a6496; }
+  to    { width:0; background:transparent; }
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label {
+  top:-40%;
+  left: auto;
+  font-size:20px;
+  font-weight: bold;
+  color:#2a6496;
+}
+
+#refresh span{
+  color:white; 
+  font-size:30px;
+  position:absolute;
+  left:65%;top:30%;
+  
+}
+
+</style>
+</head>
+<body >
+<script type="text/javascript" src="keystroke.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="Chart.js"></script>
+<br><br>
+<div class="container" style="position:relative;">
+<div class="row-fluid">
+	<div class="col-lg-6 col-lg-offset-4">
+		<form method="post" action="javascript:void(0);" >
+		 	<div class="group">
+		    <input id="pensieve" type="text" class=""  required>
+		    <span class="highlight"></span>
+		    <span class="bar"></span>
+        <a href="" id="refresh"><span class="glyphicon glyphicon-refresh" aria-hidden="true" style=""></span> </a> 
+		    <label class="text-center">Type & hit Enter !!</label>
+		    </div>
+</form>
+        
+	</div>
+  
+</div>
+	
+</div>
+<br>
+<div class="container" id="content">
+<div class="row-fluid" style="background:rgba(255,255,255,0); border-radius:4px; height:350px;">
+  <h2 style="color:white;font-family: 'Quicksand', sans-serif;letter-spacing:-3px;font-size:40px;font-weight:normal;margin-left:10px;"> 
+    This example plots the durations of keypresses for n-graphs in the input.This project uses <a href="https://github.com/fourEC/KeystrokeJS">keystroke.js</a><br>
+  </h2>
+</div>  
+</div>
+<div class="container" style="padding:0px;width:auto; background:white; " id="chart">
+  <div class="row-fluid clearfix">
+    <div class="col-lg-9">
+      <p class="text-center"  style="font-family:'Quicksand' ,sans-serif;font-size:20px;font-weight:bold;" >4 kinds of Di-graphs</p>
+      <canvas width="1000" height="400" style="background:rgba();" id="myChart1"></canvas>
+    </div>
+    <div class="col-lg-3">
+       <p  class="text-center" style="font-family:'Quicksand' ,sans-serif;font-size:20px;font-weight:bold;">Mono graphs</p>
+      <canvas id="myChart" width="300" height="400" style="background:rgba(255,255,255,0.0);"></canvas>
+    </div>
+  </div>
+  <br>
+  <div class="row-fluid clearfix" style="background:rgba(255,255,255,1); ">
+    <div class="col-lg-9">
+      <svg id="svg"style='height:400px;width:1000px;'/>
+    </div>
+    <div class="col-lg-3">
+      <p style="font-family:'Quicksand' ,sans-serif;ont-size:20px;font-weight:bold;" class="text-center">Legend for the plots<br><br>
+      U denotes Keyup<br>D denotes Keydown<br>
+      UU = U(second) - U(first)<br>
+      UD = U(second) - D(first)<br>
+      DU = D(second) - U(first)<br>
+      DD = D(second) - D(first)<br>
+      All times are in milliseconds<br>
+      No. of occurences is given in brackets
+
+      </p>
+    </div>
+  </div>
+</div>
+ 
+
+<script type="text/javascript">
+$("#refresh").hide();
+$("#svg").hide();
+$("#chart").hide();
+// tHe refresh button 
+$("#refresh").click(function(event){
+  event.preventDefault();
+  $("#refresh").hide();
+  $("#svg").hide();
+$("#chart").hide();
+var canvas1=document.getElementById("myChart");
+  var canvas2=document.getElementById("myChart1");
+  canvas1.getContext("2d").clearRect ( 0 , 0 , canvas1.width, canvas1.height );
+  canvas2.getContext("2d").clearRect ( 0 , 0 , canvas2.width, canvas2.height );
+  $("#svg").empty();
+  document.getElementById("pensieve").value="";  
+  sy= new Keystroke();
+  sy.listen("pensieve");
+  myLineChart.destroy();
+  myRadarChart.destroy();
+  data.datasets[0].data=[];
+  data1.datasets.forEach(function(elem){elem.data=[];});
+  data.labels=[];
+  data1.labels=[];
+  
+$("#content").show();
+});
+
+$("#pensieve").focus(function(){
+  $("#refresh").show(); 
+
+});
+var sy= new Keystroke();  
+sy.listen("pensieve");
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var myLineChart= new Object();
+var myRadarChart= new Object();
+var data = {
+    labels: [],
+    datasets: [
+        {
+            label: "My first dataset",
+            fillColor: "rgba(29,233,182,0.5)",
+            strokeColor: "rgba(29,233,182,1)",
+            pointColor: "rgba(29,233,182,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        }
+    ]
+};
+var data1 = {
+    labels: [],
+    datasets: [
+        {
+            label: "UU",
+            fillColor: "rgba(255,127,3,.1)",
+            strokeColor: "rgba(255,127,3,1)",
+            pointColor: "rgba(255,127,3,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        },
+         {
+            label: "UD",
+            fillColor: "rgba(118,255,3,.1)",
+            strokeColor: "rgba(118,255,3,1)",
+            pointColor: "rgba(118,255,3,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        },
+         {
+            label: "DU",
+            fillColor: "rgba(119,119,255,.1)",
+            strokeColor: "rgba(119,119,255,1)",
+            pointColor: "rgba(119,119,255,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        },
+         {
+            label: "DD",
+            fillColor: "rgba(149,117,205,.1)",
+            strokeColor: "rgba(149,117,205,1)",
+            pointColor: "rgba(149,117,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        }
+    ]
+};
+var options={
+  bezierCurve:true,
+  angleLineColor : "rgba(255,255,255,1)",
+  pointLabelFontSize : 20,
+  pointLabelFontColor : "rgba(255,255,255,1)",
+  scaleLineColor: "rgba(255,255,255,1)",
+  scaleGridLineColor : "rgba(255,255,255,1)",
+  scaleFontColor: "white"
+}
+
+
+$("#pensieve").keyup(function (event){if(event.which==13){
+  sy.populate_1();
+
+$("#content").hide();
+for (var i = 0; i < sy.monographTimes.length; i++) {
+  data.labels.push(sy.monographTimes[i].character+"("+sy.monographTimes[i].weight+")");
+  data.datasets[0].data.push(sy.monographTimes[i].duration);
+  
+};
+for (var i = 0; i < sy.digraphUUTimes.length; i++) {
+  data1.labels.push(sy.digraphDDTimes[i].character+"("+sy.digraphDDTimes[i].weight+")");
+  data1.datasets[0].data.push(sy.digraphUUTimes[i].duration);
+  data1.datasets[1].data.push(sy.digraphUDTimes[i].duration);
+  data1.datasets[2].data.push(sy.digraphDUTimes[i].duration);
+  data1.datasets[3].data.push(sy.digraphDDTimes[i].duration);
+};
+myRadarChart = new Chart(ctx).Radar(data,{animationSteps:100});
+myLineChart = new Chart( document.getElementById("myChart1").getContext("2d")).Line(data1,{animationSteps:100});
+$("#chart").show();
+
+//document.getElementById().innerHTML=myLineChart.generateLegend();
+//document.getElementById().innerHTML=myRadarChart.generateLegend();
+
+
+function digraph_values(){
+    var uu=[];
+    var ud=[];
+    var du=[];
+    var dd=[];
+    for (var i = 0; i < sy.digraphUUTimes.length; i++) {
+        uu.push({x:i,y:sy.digraphUUTimes[i].duration});
+        ud.push({x:i,y:sy.digraphUDTimes[i].duration});
+        du.push({x:i,y:sy.digraphDUTimes[i].duration});
+        dd.push({x:i,y:sy.digraphDDTimes[i].duration});
+    };
+
+    return [{
+        key:"UU",
+        values:uu,
+        color:"#ff7f0e"
+    },{
+        key:"UD",
+        values:ud,
+        color:"#76ff03"
+    },{
+        key:"DU",
+        values:du,
+        color:"#7777ff"
+    },{
+        key:"DD",
+        values:dd,
+        color:"rgba(149,117,205,1)"
+    }];
+
+}
+var datavalue=[]; 
+var tickvalue=[];
+for (var i = 0; i < sy.digraphUUTimes.length; i++) 
+                                {
+                                  tickvalue.push(i);
+                                  datavalue.push(sy.digraphDDTimes[i].character+"("+sy.digraphDDTimes[i].weight+")");
+                                };
+nv.addGraph(function() {
+    var chart = nv.models.lineChart();
+
+    chart.xAxis
+        .axisLabel("Di-Graphs")
+        .tickValues(tickvalue)
+        .tickFormat(function(d){
+                                return datavalue[d];});
+
+    chart.yAxis
+        .axisLabel("Time in milli-seconds")
+        .axisLabelDistance(50)
+        .tickFormat(d3.format("d"));
+
+    chart.margin({left:40,right:20});
+
+    d3.select("svg")
+        .datum(digraph_values())
+        .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(
+            function() {
+                chart.update();
+            }
+        );
+
+    return chart;
+});
+
+$("#svg").show();
+
+}});
+
+
+
+</script>
+
+
+</body>
+</html>
