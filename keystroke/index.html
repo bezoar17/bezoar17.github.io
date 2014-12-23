@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bezoar17</title>
+	
+ <link rel="stylesheet" type="text/css" href="bootstrap.css ">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <style type="">
+    body { 
+  background: url(images/3.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+<script type="text/javascript" src="keystroke.js"></script>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="Chart.js"></script>
+<div class="container">
+  <div class="row-fluid">
+    <div class="column-fluid">
+      
+    </div>
+  </div>
+</div>
+
+  <form method="post" action="javascript:void(0);">
+    <input id="pensieve" type="text" class="span3" placeholder="">  
+  </form>
+  <div style="background:white;" id="board">
+    
+  </div>
+  <canvas id="myChart" width="600" height="600" style="background:rgba(255,255,255,0.0);"></canvas>
+  <canvas id="myChart1" width="600" height="600" style="background:rgba(255,255,255,0.0);"></canvas>
+<div id="visualization" style="background:white;"></div>
+
+<script type="text/javascript">
+var sy= new Keystroke();  
+sy.listen("pensieve");
+
+var ctx = document.getElementById("myChart").getContext("2d");
+var data = {
+    labels: [],
+    datasets: [
+        {
+            label: "My first dataset",
+            fillColor: "rgba(151,187,205,0.75)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        }
+    ]
+};
+var data1 = {
+    labels: [],
+    datasets: [
+        {
+            label: "My Second dataset",
+            fillColor: "rgba(151,187,205,0.75)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data:[]
+        }
+    ]
+};
+var options={
+  angleLineColor : "rgba(255,255,255,1)",
+  pointLabelFontSize : 20,
+  pointLabelFontColor : "rgba(255,255,255,1)",
+  scaleLineColor: "rgba(255,255,255,1)",
+}
+
+$("#pensieve").keyup(function (event){if(event.which==13){
+sy.populate_1();
+
+for (var i = 0; i < sy.monographTimes.length; i++) {
+  data.labels.push(sy.monographTimes[i].character);
+  data.datasets[0].data.push(sy.monographTimes[i].duration);
+  data1.labels.push(sy.digraphDDTimes[i].character);
+  data1.datasets[0].data.push(sy.digraphUUTimes[i].duration);
+};
+var myRadarChart = new Chart(ctx).Radar(data,options);
+var myRadarChart1 = new Chart( document.getElementById("myChart1").getContext("2d")).Radar(data1,options);
+
+}});
+
+
+
+</script>
+</body>
+</html>
