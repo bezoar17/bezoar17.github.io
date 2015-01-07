@@ -223,6 +223,10 @@ $("#pensieve").focus(function(){
   $("#refresh").show(); 
 
 });
+$("#pensieve").focusout(function(){
+  $("#refresh").hide(); 
+
+});
 var sy= new Keystroke();  
 sy.listen("pensieve");
 
