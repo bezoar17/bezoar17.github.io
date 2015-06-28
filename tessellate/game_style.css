@@ -134,16 +134,19 @@
 			    -webkit-clip-path: polygon(0% 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 4px 100%, 0% 100%);
 			  }
 			}
-			a >span
+			#start_button >span
 			{
 			 position: fixed;
 			  top: 50%;
 			  left: 50%;
 			  /* bring your own prefixes */
-			  transform: translate(-50%, -50%);
+			  -webkit-transform: translate(-50%, -50%);
+				-ms-transform: translate(-50%, -50%);
+				transform: translate(-50%, -50%);
 			}
+
 			body {
-			    	background-image: url(	"back_default.jpg");
+			    	background-image: url("back_default.jpg");
 			     transition: background 500ms ease;
 			     margin:0px;
 			}
