@@ -1,5 +1,9 @@
 bezoar17.github.io
 ==================
-Web-page for meself :)
+A minuscle application of KeystrokeJs( https://github.com/fourEC/KeystrokeJS)
+http://bezoar17.github.io/keystroke/example.html
 
-I hope to keep it updated
+A spatial memory
+http://bezoar17.github.io/tessellate
+
+
