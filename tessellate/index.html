@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Tessellate</title>
+<!-- CSS  -->
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h1 class="header center blue-text">Tessellate</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A fun game for your spatial short-term memory.</h5>
+      </div>
+      <div class="row center">        
+        <a class="modal-trigger btn waves-effect waves-light orange" href="#howto_modal" id="howto_button">How to Play</a>
+        <a class="btn waves-effect waves-light " href="game.html" >Go Play!!</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="howto_modal" class="modal">
+    <div class="modal-content">
+      <h4 class="center teal-text">How to play<i class="material-icons modal-action modal-close right red-text" style="-ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
+    transform: rotate(45deg);">add</i></h4>
+      <!-- <a class="btn-floating btn-small btn-flat waves-effect waves-light modal-action modal-close light-blue-text right" style="top:-30px;"></a> -->
+      <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+              <li class="tab col s4"><a href="#test1" class="active">Rules</a></li>
+              <li class="tab col s4"><a href="#test2">Scoring</a></li>
+              <li class="tab col s4"><a href="#test3">Hints</a></li>            
+            </ul>
+          </div>
+          <div id="test1" class="col s12" ><p class="light">
+            This game has 15 levels. At each level a pattern of tiles will appear on the screen for a moment.
+            Remember the correct tiles appeared in the matrix and then repeat the pattern by tapping on the correct tiles.
+            You will advance to the next level(more tiles to remember) only if you correctly tap all the tiles of the pattern of that level.
+            If you are unable to pass a level you will drop down to the previous level.
+            The game offers a reload and a hint button. 
+            The reload button(can be used only at the beginning of a level) reloads the current level.
+            The hint button reveals the remainning tiles of the level for a moment.
+            Your game ends when you have used all(4) your hints.
+          </p></div>
+          <div id="test2" class="col s12">
+          <h5 class="" style="margin-left:100px;white-space: pre-wrap;">
+                +  1000xlevel for passing a level<br>
+                -   500  for failing a level<br>
+                -   200  for reloading a level
+          </h5></div>
+          <div id="test3" class="col s12"><p class="light">
+            Hints can be used to escape the -500 penalty with no loss of points.
+            Your game ends when you have used all(4) your hints.
+            Try to remember the correct pattern and score as much as possible.
+            Random tile color on every new game along with random backgrounds on every level require concentration, focus and mental awareness. 
+          </p></div>
+      </div>
+    </div>
+    <!-- <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div -->
+  </div>
+
+  <div class="container" style="padding-bottom:0px;">
+      <!--   Icon Section   -->
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+           <h2 class="center light-blue-text"><i class="material-icons">info_outline</i></h2>
+            <h5 class="center light-blue-text">About the Game</h5>
+            <p class="light">The game targets spatial short-term memory, which is closely connected to the kinds of memory tasks that we all experience on a regular basis. The player’s goal is to remember the location of tiles on a matrix of tiles in a fairly distractive environment.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
+            <h5 class="center light-blue-text">Statistics</h5>
+
+            <h5 class="light" style="line-height:1.5em;">
+              Avg Score : 21,000<br>
+              Max Score : 120,000<br>
+              Max Possible : 120,000<br>
+              Times Played : 10456<br>
+            </h5>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">reorder</i></h2>
+            <h5 class="center light-blue-text">Note</h5>
+
+            <p class="light">This version of the game was created in a day for the IBM Bluemix Hackathon. Hence the statistics on the left are just an example.
+            Final version of the game will have realtime updates on the statistics of the game and tell your accuracy as compared to others. Coming soon!! 
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h6 class="center light-blue-text"><a href="https://github.com/bezoar17"><img src="github.png"style="background-color:#2196f3;scale:0.7;height:30px;width:auto;"class="circle responsive-img"> </a></h6>
+
+  </div>
+        
+  <!--  Scripts-->
+  <script src="jquery.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>
