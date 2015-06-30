@@ -5748,11 +5748,12 @@ small {
 .material-tooltip {
   padding: 10px 8px;
   font-size: 1rem;
+  font-weight: 300;/* changed for light text on tooltip for github icon*/
   z-index: 2000;
   background-color: transparent;
   border-radius: 2px;
-  color: #fff;
-  min-height: 36px;
+  color: #000;
+  min-height: 24px;
   line-height: 1rem;
   opacity: 0;
   display: none;
@@ -5770,7 +5771,7 @@ small {
   height: 7px;
   width: 14px;
   border-radius: 0 0 14px 14px;
-  background-color: #323232;
+  background-color: rgba(256,256,256,.2);/* changed from #323232 for no background on tooltip for github icon*/
   z-index: -1;
   -webkit-transform-origin: 50% 10%;
   -moz-transform-origin: 50% 10%;
