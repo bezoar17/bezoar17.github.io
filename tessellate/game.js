@@ -47,6 +47,7 @@ levels.push(new new_level(14,6,6,19));
 levels.push(new new_level(15,6,6,20));
 
 var score=0;
+var audio_playing;
 var game_over=0;
 var canvas = new fabric.Canvas('c');
 //goto line 8424 for changing the style 
@@ -62,11 +63,7 @@ var hints=4;
 *
 */
 var fonts=[];
-fonts.push('Comfortaa');
-fonts.push('Orbitron');
-fonts.push('Eater');
-fonts.push('Quicksand');
-
+fonts.push('Comfortaa','Orbitron','Eater','Quicksand');
 /**
 *
 *
@@ -311,12 +308,14 @@ function take_input(level)
 				//first time intialization
 				turns=level.no_of_tiles;
 				done_tiles=[];
-			}	
+			}
+		$(".canvas-container").css('pointer-events','none');
+		//critical , pointer events disabled
 		for (var i = 0; i < ans_tiles.length; i++) 
 			{
 				if(i==ans_tiles.length-1)
 					{
-						canvas.item(ans_tiles[i]-1).animate('opacity', 0, {onChange: canvas.renderAll.bind(canvas),duration:200,onComplete:function()
+						canvas.item(ans_tiles[i]-1).animate('opacity', 1, {onChange: canvas.renderAll.bind(canvas),duration:100,onComplete:function()
 							{ 
 								for (var i = 0; i < ans_tiles.length; i++) 
 								{
@@ -329,14 +328,18 @@ function take_input(level)
 										$("#hint_button").css({'left':'85%'});
 										$("#hint_button").show();
 									}
+								//critical ends, pointer events enabled
+								$(".canvas-container").css('pointer-events','auto');
 					        }});
 					}
 					else
-					{canvas.item(ans_tiles[i]-1).animate('opacity', 0, {onChange: canvas.renderAll.bind(canvas),duration:200});}			
-			};
+					{canvas.item(ans_tiles[i]-1).animate('opacity', 0, {onChange: canvas.renderAll.bind(canvas),duration:100});}			
+			};		
 		canvas.renderAll();
 		canvas.on('mouse:down', function(options) 
 		{	  
+		  //critical ends, pointer events disabled
+		  $(".canvas-container").css('pointer-events','none');    
 		  if (options.target) 
 		  {
 		  	if(turns==level.no_of_tiles)
@@ -350,17 +353,37 @@ function take_input(level)
 		    	if(pos==-1 && done_tiles.indexOf(options.target.tile_number)==-1)
 			    	{
 			    		//flash a cross
-			    		$("#input_res").fadeIn(300,function(){$("#input_res").fadeOut("fast");});
-			    		// Materialize.toast('Wrong Tile',500);
+			    		// $("#input_res").fadeIn(300,function(){$("#input_res").fadeOut("fast");});
+			    		//change colour of the tile ,thats it.
+			    		options.target.set('fill','#FF4F00');
+								  		fabric.Image.fromURL('cross.png', function(oImg) 
+								  		{
+								  		  oImg.left=options.target.left;
+								  		  oImg.top=options.target.top;
+								  		  oImg.originY='center';
+								  		  oImg.originX='center';
+								  		  oImg.scale(1.2);
+								  		  oImg.selectable=false;
+										  canvas.add(oImg);
+										});
+						//image is not considered an object
+				  		canvas.renderAll();	
+				  		// Materialize.toast('Wrong Tile',500);
 			    		turns--;
 			    	}
 		    	else
 			    	{
+			    		var random_rotation;
+			    		random_rotation=Math.floor(Math.random()*100);
+			    		if(random_rotation%2==0)
+			    			random_rotation=-1;
+			    		else
+			    			random_rotation=+1;
 			    		//correct ans and not previously pressed
-			    		if(done_tiles.indexOf(options.target.tile_number)==-1)
+			    		if(done_tiles.indexOf(options.target.tile_number)==-1 && done_tiles.length!=level.no_of_tiles-1)
 			    		{
 				    		turns--;
-				    		options.target.animate('angle', 180, 
+				    		options.target.animate('angle', random_rotation*180, 
 					    		{
 								  onChange: canvas.renderAll.bind(canvas),
 								  duration: 200,
@@ -370,11 +393,40 @@ function take_input(level)
 							canvas.renderAll();
 							done_tiles.push(ans_tiles[pos]);
 							ans_tiles.splice(pos,1);
+						}
+						//last correct tile
+						if(done_tiles.indexOf(options.target.tile_number)==-1 && done_tiles.length==level.no_of_tiles-1)
+			    		{
+				    		turns--;
+				    		options.target.animate('angle', random_rotation*180, 
+					    		{
+								  onChange: canvas.renderAll.bind(canvas),
+								  duration: 200,
+								  onComplete: function()
+								  	{
+								  		options.target.set('fill','#32CD32');
+								  		fabric.Image.fromURL('check.png', function(oImg) 
+								  		{
+								  		  oImg.left=options.target.left;
+								  		  oImg.top=options.target.top;
+								  		  oImg.originY='center';
+								  		  oImg.originX='center';
+								  		  oImg.scale(1.2);
+								  		  oImg.selectable=false;
+										  canvas.add(oImg);
+										});
+										//image is not considered an object
+								  		canvas.renderAll();
+								  	}
+								});
+							canvas.renderAll();
+							done_tiles.push(ans_tiles[pos]);
+							ans_tiles.splice(pos,1);
 						}	    		
 			    	}
 		    	if(turns==0)
 		    	{	
-		    		//end    
+		    		//end  
 		    		if(ans_tiles.length==0)
 						setTimeout(function(){ level_show(levels[level.level_no+1]);},2000);
 					else
@@ -399,6 +451,8 @@ function take_input(level)
 		    	}
 		    }
 		  }
+		  //critical ends, pointer events enabled
+		  if(turns!=0)$(".canvas-container").css('pointer-events','auto');    
 		});	
 	}
 
@@ -432,6 +486,24 @@ function hint_turn(take_input)
 $(function()
 	{
 			// Vars
+		document.getElementById('player').volume=.2;
+		$('#player_button').click(function() 
+		  {
+		  	  $(this).toggleClass("waves-green");
+		  	  $(this).toggleClass("waves-red");
+		      if (audio_playing == false) 
+		      {
+		        document.getElementById('player').play();
+		        audio_playing = true;
+		      } 
+		      else 
+		      {
+		        document.getElementById('player').pause();
+		        audio_playing = false;
+		      }
+		  });
+		document.getElementById('player').play();
+		audio_playing=true;
 		$("#input_res").hide();
 		$("#reload_button").hide();
 		$("#hint_button").hide();
